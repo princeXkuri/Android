@@ -1,0 +1,4 @@
+node_modules/
+*.apk
+package-lock.json
+Android/
