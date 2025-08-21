@@ -5,35 +5,37 @@ const WebSocket = require('ws');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Simple HTTP route
+// Test HTTP route
 app.get('/', (req, res) => {
-  res.send('Mobile Control Tool Server is running');
+  res.send('Server is running');
 });
 
-// Create HTTP server
+// HTTP server
 const server = http.createServer(app);
 
-// WebSocket server
+// WebSocket server bind to same HTTP server
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   console.log('New client connected');
 
-  ws.on('message', (message) => {
-    console.log('Received:', message);
-    // Echo message back to client
-    ws.send(`Server received: ${message}`);
+  ws.on('message', (msg) => {
+    console.log('Received:', msg);
+    ws.send(`Server received: ${msg}`);
   });
 
-  ws.on('close', () => {
-    console.log('Client disconnected');
-  });
+  ws.on('close', () => console.log('Client disconnected'));
 });
 
 // Start server
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+
+
 
 const express = require('express');
 const webSocket = require('ws');
