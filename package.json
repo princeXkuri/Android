@@ -1,7 +1,13 @@
-{
+
+
+
+
+
+
 {
   "name": "mobile-control-tool",
   "version": "1.0.0",
+  "description": "Node.js server with WebSocket for Android Monitoring",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
