@@ -1,4 +1,41 @@
 const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Simple HTTP route
+app.get('/', (req, res) => {
+  res.send('Mobile Control Tool Server is running');
+});
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// WebSocket server
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+  console.log('New client connected');
+
+  ws.on('message', (message) => {
+    console.log('Received:', message);
+    // Echo message back to client
+    ws.send(`Server received: ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+// Start server
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+const express = require('express');
 const webSocket = require('ws');
 const http = require('http')
 const telegramBot = require('node-telegram-bot-api')
